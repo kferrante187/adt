@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Result } from '@adt/shared';
 
 @Component({
   selector: 'adt-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'frontend';
+  thing!: Result<string>;
 }
