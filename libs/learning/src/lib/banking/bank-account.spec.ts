@@ -43,24 +43,28 @@ describe('The Bank Account', () => {
       expect(account.balance).toBe(openingBalance - amountToWithdraw);
     });
   });
+});
+describe('Getting the Last Transaction', () => {
+  it('records your last transaction', () => {
+    const NOW = '1969-04-20T23:59:00.000Z';
+    const mockedNow = new Date(NOW);
+    jest
+      .spyOn(global, 'Date')
+      .mockImplementation(() => mockedNow as unknown as string);
 
-  describe('Getting the Last Transaction', () => {
-    it('records your last transaction', () => {
-          const NOW = '1969-04-20T23:59:00.000Z';
-          const mockedNow = new Date(NOW);
-        jest.spyOn(global, 'Date').mockImplementation(() => mockedNow as unknown as string))
-      const account = new BankAccount();
-      const amountToDeposit = 119.42;
+    const account = new BankAccount();
+    const amountToDeposit = 119.42;
 
-      account.deposit(amountToDeposit);
+    account.deposit(amountToDeposit);
 
-      const lastTransaction = account.getLastTransaction();
+    const lastTransaction = account.getLastTransaction();
 
-      expect(lastTransaction).toEqual({
-        date: '2022-10-31T20:23:00.029Z',
-        amount: amountToDeposit,
-        type: 'Deposit',
-      });
+    expect(lastTransaction).toEqual({
+      date: NOW,
+      amount: amountToDeposit,
+      type: 'Deposit',
     });
   });
 });
+
+// { date: '2022-10-31...', type: 'Deposit', amount: 100}
